@@ -1,0 +1,78 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+:root {
+  --black: #394249;
+  --pale-white: #f4f4f4;
+  --small-padding: 10px;
+  --medium-padding: 20px;
+  --medium-font-size: 14px;
+  --blue: blue;
+  --orange: #d86410;
+  --red: #d50d3d;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../fonts/Ubuntu-Regular.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+* {
+  font-family: 'Ubuntu';
+  font-size: 23px;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: 1px solid var(--black);
+  background-color: var(--pale-white);
+  border-radius: 18px;
+}
+
+.btn:hover {
+  background-color: #e9a746;
+}
+
+.todos {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: calc(100vh - 108px);
+}
