@@ -65,6 +65,7 @@ h6 {
   border: 1px solid var(--black);
   background-color: var(--pale-white);
   border-radius: 18px;
+  display: inline-block;
 }
 
 .btn:hover {

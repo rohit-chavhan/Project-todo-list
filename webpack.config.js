@@ -1,13 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { type } = require('os');
 
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
   devtool: 'inline-source-map',
   devServer: {
-    static: path.join(__dirname, 'src'),
+    static: path.join(__dirname, 'dist'),
     hot: true,
     port: 8300,
   },

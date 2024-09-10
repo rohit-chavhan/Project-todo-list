@@ -2,16 +2,20 @@ import {
   projectArray,
   createProject,
   task,
-  projectValues,
   addTask,
   removeTask,
-  changePrority,
-  taskCompleted,
   projectClosedValues,
+  refreshingLocalStorage,
 } from './calculationLayer';
 
 import { formateMonth, formateDay } from './dateFormter';
-import { buttonCutter, taskCutter, formCutter, options } from './htmlCutters';
+import {
+  buttonCutter,
+  taskCutter,
+  formCutter,
+  chooseProjectFormOption,
+  mainForm,
+} from './htmlCutters';
 
 function addProjectFunc() {
   const addProjects = document.querySelector('.addProjects');
@@ -28,7 +32,6 @@ function addProjectFunc() {
   }
 
   function renderBtnAndTasks() {
-    console.log('red');
     clearTaskDiv();
     taskDiv.append(addTasksBtn());
     actionForEachTasks(getArrayOutOfObj(projectClosedValues.getProject()));
@@ -40,16 +43,18 @@ function addProjectFunc() {
     const dueDate = document.querySelector('#taskDate').value;
     const priority = document.querySelector('#taskPriority').value;
     let month = undefined;
+    const projectValue = document.querySelector('#chooseProject').value;
 
     month =
       dueDate !== ''
         ? `${formateMonth(dueDate)} ${formateDay(dueDate)}`
         : (month = undefined);
 
-    const creatingTaskObj = new task(title, description, month, priority);
-    addTask(creatingTaskObj);
-
-    // here we had the logic for the below function
+    if (title === '') {
+    } else {
+      const creatingTaskObj = new task(title, description, month, priority);
+      addTask(creatingTaskObj, projectValue);
+    }
     renderBtnAndTasks();
   }
 
@@ -110,6 +115,77 @@ function addProjectFunc() {
         if (event.target.innerHTML === 'delete') {
           removeTask(i);
           renderBtnAndTasks();
+          console.log('delete');
+        }
+
+        if (event.target.innerHTML === 'view') {
+          let diScript =
+            el.description === ''
+              ? ''
+              : `<p>description: ${el.description}</p>`;
+
+          let dateScript =
+            el.date === undefined ? '' : `<p>date: ${el.date}</p>`;
+
+          document.querySelector('#box').innerHTML = `
+          <dialog id="dialog" open>
+          <h2>task</h2>
+            <p>title: ${el.title}</p>
+            ${diScript}
+            ${dateScript}
+            <p>priority: ${el.priority}</p>
+            <button class='btn' id="close">close</button>
+          </dialog>
+          `;
+          document.querySelector('#close').addEventListener('click', () => {
+            document.querySelector('#box').innerHTML = '';
+          });
+        }
+
+        if (event.target.innerHTML === 'edit') {
+          document.querySelector('#box').innerHTML = `    
+            <dialog id="dialog" open>
+                <p> edit task </p>
+                ${mainForm}
+                <button class="btn" id="kafka">submit</button>
+                <button class="btn" id="editClose">close</button>
+            </dialog>`;
+
+          document.querySelector('#taskTitle').value = el.title;
+          document.querySelector('#taskDescription').value = el.description;
+          document.querySelector('#taskDate').value = el.date;
+          document.querySelector('#taskPriority').value = el.priority;
+          document.querySelector('#editClose').addEventListener('click', () => {
+            document.querySelector('#box').innerHTML = '';
+          });
+
+          document.querySelector('#kafka').addEventListener('click', () => {
+            const title = document.querySelector('#taskTitle').value;
+            const description =
+              document.querySelector('#taskDescription').value;
+            const dueDate = document.querySelector('#taskDate').value;
+            const priority = document.querySelector('#taskPriority').value;
+            let month = undefined;
+            month =
+              dueDate !== ''
+                ? `${formateMonth(dueDate)} ${formateDay(dueDate)}`
+                : (month = undefined);
+            if (title === '') {
+            } else {
+              const creatingTaskObj = new task(
+                title,
+                description,
+                month,
+                priority
+              );
+              addTask(creatingTaskObj);
+              refreshingLocalStorage();
+            }
+
+            removeTask(i);
+            document.querySelector('#box').innerHTML = '';
+            renderBtnAndTasks();
+          });
         }
       });
 
@@ -119,7 +195,8 @@ function addProjectFunc() {
 
   function taskInfoPopUp() {
     taskDiv.append(formCutter());
-    options();
+
+    chooseProjectFormOption();
 
     const formInsideDiv = document.querySelector('#form');
     formInsideDiv.addEventListener('submit', (event) => event.preventDefault());
@@ -130,6 +207,7 @@ function addProjectFunc() {
 
     document.querySelector('.cancel').addEventListener('click', () => {
       formInsideDiv.reset();
+      renderBtnAndTasks();
     });
   }
 

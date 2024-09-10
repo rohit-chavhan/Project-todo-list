@@ -1,3 +1,18 @@
-/* .form {
-  filter: blur(3px);
-} */
+#dialog {
+  top: 20vh;
+  left: 47vw;
+  z-index: 20;
+}
+
+.hidden {
+  display: none;
+}
+
+.display {
+  display: block;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column;
+}
