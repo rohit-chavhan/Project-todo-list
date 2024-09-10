@@ -25,6 +25,11 @@ function addProjectFunc() {
   const arrayToProjects = document.querySelector('.arrayToProjects');
   const clickEnter = document.querySelector('.clickEnter');
   const taskDiv = document.querySelector('.tasks');
+  const clearBtn = document.querySelector('.clearSession');
+
+  clearBtn.addEventListener('click', () => {
+    localStorage.clear();
+  });
 
   function getArrayOutOfObj(propertyName) {
     let array = projectArray[propertyName];

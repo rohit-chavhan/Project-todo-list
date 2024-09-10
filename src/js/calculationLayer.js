@@ -35,9 +35,9 @@ const refreshingLocalStorage = () => {
   localStorage.setItem('todos', JSON.stringify(projectArray));
 };
 
-const projectArray =
-  JSON.parse(localStorage.getItem('todos')) ||
-  JSON.stringify(localStorage.setItem(preloadedObj));
+const projectArray = JSON.parse(
+  localStorage.getItem('todos') || JSON.stringify(preloadedObj)
+);
 
 refreshingLocalStorage();
 
