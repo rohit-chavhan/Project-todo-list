@@ -1,7 +1,5 @@
 const { format } = require('date-fns');
 
-const btn = document.querySelector('.bts');
-
 function formateMonth(arg) {
   return format(new Date(arg), 'MMM');
 }

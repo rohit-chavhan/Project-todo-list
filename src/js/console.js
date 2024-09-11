@@ -17,6 +17,11 @@ import {
   mainForm,
 } from './htmlCutters';
 
+import '../css/nav.css';
+import '../css/projects.css';
+import '../css/checkbox.css';
+import '../css/form.css';
+
 function addProjectFunc() {
   const addProjects = document.querySelector('.addProjects');
   const addForm = document.querySelector('.addForm');

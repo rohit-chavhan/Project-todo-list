@@ -16,7 +16,7 @@ module.exports = {
       title: 'to do',
       filename: 'index.html',
       inject: 'head',
-      scriptLoading: 'defer',
+      scriptLoading: 'module',
     }),
   ],
   output: {
