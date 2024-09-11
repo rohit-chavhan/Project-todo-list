@@ -3,10 +3,6 @@ import projectHtml from './html/projects.html';
 import taskHtml from './html/tasks.html';
 
 import './css/styles.css';
-import './css/nav.css';
-import './css/projects.css';
-import './css/checkbox.css';
-import './css/form.css';
 
 import { addProjectFunc } from './js/console';
 
